@@ -4,7 +4,9 @@ export class racePage {
 
     static elements = {
         totalRaceElements: () => cy.xpath("// div[@id='container']/div[contains(@class,'race-summary')]"),
-        timeOfEachRaceElements: () => cy.xpath("// div[@id='container']/div[contains(@class,'race-summary')]/p[2]")
+        timeOfEachRaceElements: () => cy.xpath("// div[@id='container']/div[contains(@class,'race-summary')]/p[2]"),
+        titleOfEachRaceElements: () => cy.xpath("// div[@id='container']/div[contains(@class,'race-summary')]/h3"),
+        raceNumberOfEachRaceElements: () => cy.xpath("// div[@id='container']/div[contains(@class,'race-summary')]/p[1]"),
 
     }
 
@@ -29,4 +31,5 @@ export class racePage {
 
         })
     }
+
 }

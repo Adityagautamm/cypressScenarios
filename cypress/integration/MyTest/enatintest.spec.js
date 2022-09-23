@@ -52,4 +52,59 @@ describe('example to-do app', () => {
         racePage.elements.totalRaceElements().should('have.length', 5);
         racePage.verifyDataIsSortedAscendingly(racePage.elements.timeOfEachRaceElements());
     })
+
+    it('Verify race meeting name for respective race type', () => {
+
+        //Greyhound
+        racePage.selectRaceTypeCheckbox('Greyhound').check({ force: true });
+        racePage.selectRaceTypeCheckbox('Harness').uncheck({ force: true });
+        racePage.selectRaceTypeCheckbox('Thoroughbred').uncheck({ force: true });
+        racePage.elements.titleOfEachRaceElements().should('be.visible');
+
+        racePage.elements.titleOfEachRaceElements().each(($el, index, $list) => {
+
+            expect(Cypress.$($el).text()).to.contain('Greyhound');
+        })
+
+        //Harness
+        racePage.selectRaceTypeCheckbox('Greyhound').uncheck({ force: true });
+        racePage.selectRaceTypeCheckbox('Harness').check({ force: true });
+        racePage.selectRaceTypeCheckbox('Thoroughbred').uncheck({ force: true });
+        racePage.elements.titleOfEachRaceElements().should('be.visible');
+
+        racePage.elements.titleOfEachRaceElements().each(($el, index, $list) => {
+
+            expect(Cypress.$($el).text()).to.contain('Harness');
+        })
+
+        //Thoroughbred
+        racePage.selectRaceTypeCheckbox('Greyhound').uncheck({ force: true });
+        racePage.selectRaceTypeCheckbox('Harness').uncheck({ force: true });
+        racePage.selectRaceTypeCheckbox('Thoroughbred').check({ force: true });
+        racePage.elements.titleOfEachRaceElements().should('be.visible');
+
+        racePage.elements.titleOfEachRaceElements().each(($el, index, $list) => {
+
+            expect(Cypress.$($el).text()).to.contain('Thoroughbred');
+        })
+    })
+
+
+    it.only('Verify Race details', () => {
+        racePage.elements.raceNumberOfEachRaceElements().each(($el, index, $list) => {
+            expect(Cypress.$($el).text()).to.match(/Race ([0-9]+)/);
+        })
+
+
+        racePage.elements.timeOfEachRaceElements().each(($el, index, $list) => {
+
+            expect(Cypress.$($el).text()).to.match(/([-]*)([0-9]+)([ms]+)/);
+        })
+
+        racePage.elements.titleOfEachRaceElements().each(($el, index, $list) => {
+
+            expect(Cypress.$($el).text()).to.match(/([A-Za-z]+)/);
+        })
+
+    })
 })
