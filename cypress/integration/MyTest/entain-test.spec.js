@@ -110,8 +110,6 @@ describe('example to-do app', () => {
 
     })
 
-
-
     it('Verify race shouldnt show after 1 minute from start time', () => {
 
         racePage.elements.timeOfEachRaceElements().each(($el, index, $list) => {
